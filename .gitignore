@@ -1,0 +1,10 @@
+.vscode
+
+
+# HomeLibrary.API gitignore
+
+HomeLibrary.API/.vscode
+HomeLibary.API/bin
+HomeLibrary.API/obj
+HomeLibrary.API/*.db
+HomeLibrary.API/appsettings.json
