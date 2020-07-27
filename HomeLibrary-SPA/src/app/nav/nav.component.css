@@ -1,0 +1,12 @@
+.dropdown-toggle, .dropdown-item {
+    cursor: pointer;
+}
+
+.container {
+    font-size: 150%;
+}
+
+.navbar-brand {
+    font-size: 200%;
+    font-family: 'fantasy';
+}
