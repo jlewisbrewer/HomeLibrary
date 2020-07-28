@@ -1,16 +1,16 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
   <div class="container">
-    <a class="navbar-brand" href="#">HomeLibrary</a>
+    <a class="navbar-brand" [routerLink]="['/home']">HomeLibrary</a>
 
     <ul *ngIf="loggedIn()" class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Library</a>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/books']"  >Library</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Add Book</a>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/books/add']" >Add Book</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Remove Book</a>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/books/remove']"  >Remove Book</a>
       </li>
     </ul>
 
