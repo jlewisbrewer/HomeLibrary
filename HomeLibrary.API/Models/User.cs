@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace HomeLibrary.API.Models
 {
@@ -10,5 +11,6 @@ namespace HomeLibrary.API.Models
         public byte[] PasswordSalt { get; set; }
         public DateTime Created { get; set; }
         public DateTime LastActive { get; set; }
+        public ICollection<UserBook> UserBooks { get; set; }
     }
 }

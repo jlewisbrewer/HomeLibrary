@@ -4,7 +4,7 @@ namespace HomeLibrary.API.Models
 {
     public class Category
     {
-        public int CategoryId { get; set; }
+        public int Id { get; set; }
         public string Description { get; set; }
         public ICollection<BookCategory> BookCategories { get; set; }
     }   

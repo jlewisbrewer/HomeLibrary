@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HomeLibrary.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200729022617_AddedBookClass")]
-    partial class AddedBookClass
+    [Migration("20200730001658_AddedBookEntity")]
+    partial class AddedBookEntity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,7 +20,7 @@ namespace HomeLibrary.API.Migrations
 
             modelBuilder.Entity("HomeLibrary.API.Models.Book", b =>
                 {
-                    b.Property<int>("BookId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -42,13 +42,10 @@ namespace HomeLibrary.API.Migrations
                     b.Property<string>("Publisher")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Read")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Title")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("BookId");
+                    b.HasKey("Id");
 
                     b.ToTable("Books");
                 });
@@ -70,14 +67,14 @@ namespace HomeLibrary.API.Migrations
 
             modelBuilder.Entity("HomeLibrary.API.Models.Category", b =>
                 {
-                    b.Property<int>("CategoryId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("CategoryId");
+                    b.HasKey("Id");
 
                     b.ToTable("Categories");
                 });
