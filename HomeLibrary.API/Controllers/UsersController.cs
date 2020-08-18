@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using AutoMapper;
 using HomeLibrary.API.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,8 +12,10 @@ namespace HomeLibrary.API.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IHomeLibraryRepository _repo;
-        public UsersController(IHomeLibraryRepository repo)
+        private readonly IMapper _mapper;
+        public UsersController(IHomeLibraryRepository repo, IMapper mapper)
         {
+            _mapper = mapper;
             _repo = repo;
 
         }
