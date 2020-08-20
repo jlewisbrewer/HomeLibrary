@@ -1,4 +1,6 @@
 using AutoMapper;
+using HomeLibrary.API.Dtos;
+using HomeLibrary.API.Models;
 
 namespace HomeLibrary.API.Helpers
 {
@@ -6,7 +8,8 @@ namespace HomeLibrary.API.Helpers
     {
         public AutoMapperProfiles()
         {
-            
+            CreateMap<Book, BookForListDto>();
+            CreateMap<Book, BookForDetailedDto>();
         }
     }
 }

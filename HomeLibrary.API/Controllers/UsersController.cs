@@ -28,5 +28,12 @@ namespace HomeLibrary.API.Controllers
             return Ok(books);
         }
 
+        public async Task<IActionResult> GetBook(int id)
+        {
+            var book = await _repo.GetBook(id);
+            
+            return Ok(book);
+        }
+
     }
 }
