@@ -1,3 +1,4 @@
+import { UserLibraryComponent } from './users/user-library/user-library.component';
 import { BookDetailComponent } from './books/book-detail/book-detail.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { BookSearchComponent } from './books/book-search/book-search.component';
@@ -14,6 +15,7 @@ export const appRoutes: Routes = [
     runGuardsAndResolvers: 'always',
     canActivate: [AuthGuard],
     children: [
+      { path: 'users/:id', component: UserLibraryComponent},
       { path: 'books', component: BookListComponent },
       { path: 'books/:id', component: BookDetailComponent},
       { path: 'books/search', component: BookSearchComponent },

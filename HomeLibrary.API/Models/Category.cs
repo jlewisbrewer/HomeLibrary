@@ -6,6 +6,6 @@ namespace HomeLibrary.API.Models
     {
         public int Id { get; set; }
         public string Description { get; set; }
-        public ICollection<BookCategory> BookCategories { get; set; }
+        public ICollection<UserBookCategory> UserBookCategories { get; set; }
     }   
 }

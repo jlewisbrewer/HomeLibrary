@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HomeLibrary.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200730001658_AddedBookEntity")]
-    partial class AddedBookEntity
+    [Migration("20200821010555_InitialAdd")]
+    partial class InitialAdd
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -25,6 +25,9 @@ namespace HomeLibrary.API.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Author")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Isbn10")
@@ -48,21 +51,6 @@ namespace HomeLibrary.API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Books");
-                });
-
-            modelBuilder.Entity("HomeLibrary.API.Models.BookCategory", b =>
-                {
-                    b.Property<int>("BookId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("BookId", "CategoryId");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("BookCategories");
                 });
 
             modelBuilder.Entity("HomeLibrary.API.Models.Category", b =>
@@ -105,6 +93,45 @@ namespace HomeLibrary.API.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("HomeLibrary.API.Models.UserBook", b =>
+                {
+                    b.Property<int>("UserBookId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("BookId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Read")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("UserBookId");
+
+                    b.HasIndex("BookId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserBooks");
+                });
+
+            modelBuilder.Entity("HomeLibrary.API.Models.UserBookCategory", b =>
+                {
+                    b.Property<int>("UserBookId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("UserBookId", "CategoryId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("BookCategories");
+                });
+
             modelBuilder.Entity("HomeLibrary.API.Models.Value", b =>
                 {
                     b.Property<int>("Id")
@@ -119,17 +146,32 @@ namespace HomeLibrary.API.Migrations
                     b.ToTable("Values");
                 });
 
-            modelBuilder.Entity("HomeLibrary.API.Models.BookCategory", b =>
+            modelBuilder.Entity("HomeLibrary.API.Models.UserBook", b =>
                 {
                     b.HasOne("HomeLibrary.API.Models.Book", "Book")
-                        .WithMany("BookCategories")
+                        .WithMany("UserBooks")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("HomeLibrary.API.Models.User", "User")
+                        .WithMany("UserBooks")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("HomeLibrary.API.Models.UserBookCategory", b =>
+                {
                     b.HasOne("HomeLibrary.API.Models.Category", "Category")
-                        .WithMany("BookCategories")
+                        .WithMany("UserBookCategories")
                         .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("HomeLibrary.API.Models.UserBook", "UserBook")
+                        .WithMany("UserBookCategories")
+                        .HasForeignKey("UserBookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -4,7 +4,7 @@
 
     <ul *ngIf="loggedIn()" class="navbar-nav mr-auto">
       <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" [routerLink]="['/books']"  >Library</a>
+        <a class="nav-link" [routerLink]="['/users/' + authService.decodedToken.nameid]"  >Library</a>
       </li>
       <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" [routerLink]="['/books/add']" >Add Book</a>

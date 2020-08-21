@@ -1,10 +1,11 @@
 namespace HomeLibrary.API.Models
 {
-    public class BookCategory
+    public class UserBookCategory
     {
-        public int BookId { get; set; }
-        public Book Book { get; set; }
+        public int UserBookId { get; set; }
+        public UserBook UserBook { get; set; }
         public int CategoryId { get; set; }
         public Category Category { get; set; }
+
     }
 }

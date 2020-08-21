@@ -20,6 +20,8 @@ import { BookRemoveComponent } from './books/book-remove/book-remove.component';
 import { BookSearchComponent } from './books/book-search/book-search.component';
 import { BookCardComponent } from './books/book-card/book-card.component';
 import { BookDetailComponent } from './books/book-detail/book-detail.component';
+import { UserLibraryComponent } from './users/user-library/user-library.component';
+
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -36,7 +38,8 @@ export function tokenGetter() {
       BookRemoveComponent,
       BookSearchComponent,
       BookCardComponent,
-      BookDetailComponent
+      BookDetailComponent,
+      UserLibraryComponent
    ],
    imports: [
       BrowserModule,

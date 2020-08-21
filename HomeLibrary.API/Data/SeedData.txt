@@ -1,0 +1,5 @@
+http://books.google.com/books/content?id=FX-4AT2btqIC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api
+
+http://books.google.com/books/content?id=ChlOAwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api
+
+http://books.google.com/books/content?id=C9aBpwAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api

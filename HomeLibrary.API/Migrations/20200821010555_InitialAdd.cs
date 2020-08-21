@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HomeLibrary.API.Migrations
 {
-    public partial class AddedBookEntity : Migration
+    public partial class InitialAdd : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,6 +16,7 @@ namespace HomeLibrary.API.Migrations
                     Title = table.Column<string>(nullable: true),
                     Author = table.Column<string>(nullable: true),
                     Publisher = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
                     Isbn10 = table.Column<string>(nullable: true),
                     Isbn13 = table.Column<string>(nullable: true),
                     PageCount = table.Column<int>(nullable: false),
@@ -57,26 +58,66 @@ namespace HomeLibrary.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BookCategories",
+                name: "Values",
                 columns: table => new
                 {
-                    BookId = table.Column<int>(nullable: false),
-                    CategoryId = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BookCategories", x => new { x.BookId, x.CategoryId });
+                    table.PrimaryKey("PK_Values", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserBooks",
+                columns: table => new
+                {
+                    UserBookId = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    UserId = table.Column<int>(nullable: false),
+                    BookId = table.Column<int>(nullable: false),
+                    Read = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserBooks", x => x.UserBookId);
                     table.ForeignKey(
-                        name: "FK_BookCategories_Books_BookId",
+                        name: "FK_UserBooks_Books_BookId",
                         column: x => x.BookId,
                         principalTable: "Books",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
+                        name: "FK_UserBooks_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "BookCategories",
+                columns: table => new
+                {
+                    UserBookId = table.Column<int>(nullable: false),
+                    CategoryId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BookCategories", x => new { x.UserBookId, x.CategoryId });
+                    table.ForeignKey(
                         name: "FK_BookCategories_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
                         principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_BookCategories_UserBooks_UserBookId",
+                        column: x => x.UserBookId,
+                        principalTable: "UserBooks",
+                        principalColumn: "UserBookId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -84,6 +125,16 @@ namespace HomeLibrary.API.Migrations
                 name: "IX_BookCategories_CategoryId",
                 table: "BookCategories",
                 column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserBooks_BookId",
+                table: "UserBooks",
+                column: "BookId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserBooks_UserId",
+                table: "UserBooks",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -92,13 +143,19 @@ namespace HomeLibrary.API.Migrations
                 name: "BookCategories");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Values");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
+
+            migrationBuilder.DropTable(
+                name: "UserBooks");
 
             migrationBuilder.DropTable(
                 name: "Books");
 
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "Users");
         }
     }
 }

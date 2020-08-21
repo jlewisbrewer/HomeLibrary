@@ -14,22 +14,24 @@ export class NavComponent implements OnInit {
   constructor(
     public authService: AuthService,
     private alertify: AlertifyService,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
-
   }
 
   login(): void {
     this.authService.login(this.model).subscribe(
-      (next) => {
+      () => {
         this.alertify.success('Logged in successfully');
       },
       (error) => {
         this.alertify.error(error);
-      }, () => {
-        this.router.navigate(['/books']);
+      },
+      () => {
+        console.log(this.authService.decodedToken.nameid);
+
+        this.router.navigate(['/users/' + this.authService.decodedToken.nameid]);
       }
     );
   }
@@ -43,4 +45,5 @@ export class NavComponent implements OnInit {
     this.alertify.message('Logged out');
     this.router.navigate(['/home']);
   }
+
 }

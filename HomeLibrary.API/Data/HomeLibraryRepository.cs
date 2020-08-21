@@ -31,9 +31,9 @@ namespace HomeLibrary.API.Data
             var book = await _context.Books
                 .FirstOrDefaultAsync(b => b.Id == id);
             
-            book.BookCategories = await _context.BookCategories
-                .Include(bc => bc.Category)
-                .ToListAsync();
+            // book.BookCategories = await _context.BookCategories
+            //     .Include(bc => bc.Category)
+            //     .ToListAsync();
 
             return book;
         }
@@ -59,14 +59,18 @@ namespace HomeLibrary.API.Data
             return user;
         }
 
-        public async Task<IEnumerable<UserBook>> GetUserBooks(int id)
+        public async Task<IEnumerable<Book>> GetUserBooks(int id)
         {
-            var books = await _context.UserBooks
-                .Include(ub => ub.Book)
+            var booksIds = await _context.UserBooks
                 .Where(x => x.UserId == id)
+                .Select(x => x.BookId)
                 .ToListAsync();
 
-            return books;
+            var booksToReturn = await _context.Books
+                .Where(x => booksIds.Contains(x.Id))
+                .ToListAsync();
+                
+            return booksToReturn;
         }
 
         public async Task<bool> SaveAll()

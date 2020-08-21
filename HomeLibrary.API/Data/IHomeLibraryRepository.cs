@@ -10,7 +10,7 @@ namespace HomeLibrary.API.Data
         void Delete<T>(T entity) where T : class;
         Task<bool> SaveAll();
         Task<IEnumerable<Book>> GetBooks();
-        Task<IEnumerable<UserBook>> GetUserBooks(int id);
+        Task<IEnumerable<Book>> GetUserBooks(int id);
 
         Task<User> GetUser(int id);
         Task<Book> GetBook(int id);

@@ -21,4 +21,7 @@ constructor(private http: HttpClient) { }
     return this.http.get<Book>(this.baseUrl + 'books/' + id);
   }
 
+  getUserBooks(id): Observable<Book[]> {
+    return this.http.get<Book[]>(this.baseUrl + 'users/' + id + '/books/');
+  }
 }

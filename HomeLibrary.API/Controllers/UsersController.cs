@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using HomeLibrary.API.Data;
+using HomeLibrary.API.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,20 +22,27 @@ namespace HomeLibrary.API.Controllers
 
         }
 
-        [HttpGet("{id}")]
+        // [HttpGet("{id}")]
+        // public async Task<IActionResult> GetUser(int id)
+        // {
+        //     var user = await _repo.GetUser(id);
+        //     // var userToReturn = await _mapper.Map<UserForDisplayDto>(user);
+        //     return Ok(user);
+        // }
+
+        [HttpGet("{id}/books")]
         public async Task<IActionResult> GetUserBooks(int id)
         {
             var books = await _repo.GetUserBooks(id);
-
-            return Ok(books);
+            var booksToReturn = _mapper.Map<IEnumerable<BookForListDto>>(books);
+            return Ok(booksToReturn);
         }
-
-        public async Task<IActionResult> GetBook(int id)
-        {
-            var book = await _repo.GetBook(id);
+        // public async Task<IActionResult> GetBook(int id)
+        // {
+        //     var book = await _repo.GetBook(id);
             
-            return Ok(book);
-        }
+        //     return Ok(book);
+        // }
 
     }
 }
