@@ -10,6 +10,8 @@ namespace HomeLibrary.API.Helpers
         {
             CreateMap<Book, BookForListDto>();
             CreateMap<Book, BookForDetailedDto>();
-            CreateMap<User, UserForDisplayDto>();        }
+            CreateMap<User, UserForDisplayDto>();
+            CreateMap<UserForRegisterDto, User>();
+        }
     }
 }

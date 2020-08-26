@@ -3,6 +3,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using HomeLibrary.API.Data;
 using HomeLibrary.API.Dtos;
 using HomeLibrary.API.Models;
@@ -18,8 +19,10 @@ namespace HomeLibrary.API.Controllers
     {
         private readonly IAuthRepository _repo;
         private readonly IConfiguration _config;
-        public AuthController(IAuthRepository repo, IConfiguration config)
+        private readonly IMapper _mapper;
+        public AuthController(IAuthRepository repo, IConfiguration config, IMapper mapper)
         {
+            _mapper = mapper;
             _config = config;
             _repo = repo;
         }
@@ -32,14 +35,13 @@ namespace HomeLibrary.API.Controllers
             if (await _repo.UserExists(userForRegisterDto.Username))
                 return BadRequest("Username already exists");
 
-            var userToCreate = new User
-            {
-                Username = userForRegisterDto.Username
-            };
+            var userToCreate = _mapper.Map<User>(userForRegisterDto);
 
             var createdUser = await _repo.Register(userToCreate, userForRegisterDto.Password);
 
-            return StatusCode(201);
+            var userToReturn = _mapper.Map<UserForDisplayDto>(createdUser);
+
+            return CreatedAtRoute("GetUserBooks", new {controller = "Users", id = createdUser.Id}, userToReturn);
         }
 
         [HttpPost("login")]
@@ -71,7 +73,8 @@ namespace HomeLibrary.API.Controllers
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            return Ok(new {
+            return Ok(new
+            {
                 token = tokenHandler.WriteToken(token)
             });
         }

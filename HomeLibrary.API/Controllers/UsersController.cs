@@ -30,7 +30,7 @@ namespace HomeLibrary.API.Controllers
         //     return Ok(user);
         // }
 
-        [HttpGet("{id}/books")]
+        [HttpGet("{id}/books", Name="GetUserBooks")]
         public async Task<IActionResult> GetUserBooks(int id)
         {
             var books = await _repo.GetUserBooks(id);

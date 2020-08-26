@@ -1,3 +1,4 @@
+import { User } from './../_models/user';
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -27,8 +28,8 @@ export class AuthService {
     );
   }
 
-  register(model: any) {
-    return this.http.post(this.baseUrl + 'register', model);
+  register(user: User) {
+    return this.http.post(this.baseUrl + 'register', user);
   }
 
   loggedIn() {
