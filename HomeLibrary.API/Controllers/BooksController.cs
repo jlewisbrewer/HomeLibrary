@@ -38,5 +38,26 @@ namespace HomeLibrary.API.Controllers
 
             return Ok(bookToReturn);
         }
+
+        [HttpPost("search")]
+        public async Task<IActionResult> Search(BookForSearchDto bookForSearchDto)
+        {
+
+            var bookId = await _repo.SearchForExistingBook(bookForSearchDto);
+            if (bookId != -1)
+            {
+                var book = await _repo.GetBook(bookId);
+                var bookToReturn = _mapper.Map<BookForDetailedDto>(book);
+
+                return Ok(bookToReturn);
+            }
+            else 
+            {
+                
+            }
+
+            return BadRequest("Book not found");
+
+        }
     }
 }

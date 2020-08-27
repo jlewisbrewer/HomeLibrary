@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HomeLibrary.API.Dtos;
 using HomeLibrary.API.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,6 +20,7 @@ namespace HomeLibrary.API.Data
             _context.Add(entity);
         }
 
+
         public void Delete<T>(T entity) where T : class
         {
             _context.Remove(entity);
@@ -26,14 +28,8 @@ namespace HomeLibrary.API.Data
 
         public async Task<Book> GetBook(int id)
         {
-            // This might not work 
-
             var book = await _context.Books
                 .FirstOrDefaultAsync(b => b.Id == id);
-            
-            // book.BookCategories = await _context.BookCategories
-            //     .Include(bc => bc.Category)
-            //     .ToListAsync();
 
             return book;
         }
@@ -50,7 +46,7 @@ namespace HomeLibrary.API.Data
         {
             var user = await _context.Users
                 .FirstOrDefaultAsync(u => u.Id == id);
-            
+
             user.UserBooks = await _context.UserBooks
                 .Include(ub => ub.Book)
                 .Where(x => x.UserId == id)
@@ -69,13 +65,28 @@ namespace HomeLibrary.API.Data
             var booksToReturn = await _context.Books
                 .Where(x => booksIds.Contains(x.Id))
                 .ToListAsync();
-                
+
             return booksToReturn;
         }
 
         public async Task<bool> SaveAll()
         {
             return await _context.SaveChangesAsync() > 0;
+        }
+
+        public async Task<int> SearchForExistingBook(BookForSearchDto bookForSearchDto)
+        {
+            var id = -1;
+            if (await _context.Books.AnyAsync(x => x.Isbn10 == bookForSearchDto.Isbn))
+                id = (await _context.Books.FirstOrDefaultAsync(x => x.Isbn10 == bookForSearchDto.Isbn)).Id;
+            
+            if (await _context.Books.AnyAsync(x => x.Isbn13 == bookForSearchDto.Isbn))
+                id = (await _context.Books.FirstOrDefaultAsync(x => x.Isbn13 == bookForSearchDto.Isbn)).Id;
+
+            if (await _context.Books.AnyAsync(x => x.Title.ToLower() == bookForSearchDto.Title.ToLower() && x.Author.ToLower() == bookForSearchDto.Author.ToLower()))
+                id = (await _context.Books.FirstOrDefaultAsync(x => x.Title.ToLower() == bookForSearchDto.Title.ToLower() && x.Author.ToLower() == bookForSearchDto.Author.ToLower())).Id;
+
+            return id;
         }
     }
 }

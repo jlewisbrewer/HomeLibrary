@@ -14,6 +14,6 @@ namespace HomeLibrary.API.Models
         public int PageCount { get; set; }
         public ICollection<UserBook> UserBooks { get; set; }
         public string PhotoUrl { get; set; }
-
+        
     }
 }

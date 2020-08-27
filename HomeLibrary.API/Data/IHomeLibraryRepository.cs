@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using HomeLibrary.API.Dtos;
 using HomeLibrary.API.Models;
 
 namespace HomeLibrary.API.Data
@@ -11,8 +12,8 @@ namespace HomeLibrary.API.Data
         Task<bool> SaveAll();
         Task<IEnumerable<Book>> GetBooks();
         Task<IEnumerable<Book>> GetUserBooks(int id);
-
         Task<User> GetUser(int id);
         Task<Book> GetBook(int id);
+        Task<int> SearchForExistingBook(BookForSearchDto bookForSearchDto);
     }
 }
