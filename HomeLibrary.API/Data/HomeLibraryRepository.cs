@@ -20,10 +20,25 @@ namespace HomeLibrary.API.Data
             _context.Add(entity);
         }
 
+        public async Task<Book> AddBook(Book book)
+        {
+            await _context.Books.AddAsync(book);
+
+            return book;
+        }
 
         public void Delete<T>(T entity) where T : class
         {
             _context.Remove(entity);
+        }
+
+        public async Task<Book> DeleteBook(int id)
+        {
+            var book = await this.GetBook(id);
+            _context.Remove(book);
+            await _context.SaveChangesAsync();
+
+            return book;
         }
 
         public async Task<Book> GetBook(int id)
@@ -88,5 +103,6 @@ namespace HomeLibrary.API.Data
 
             return id;
         }
+
     }
 }

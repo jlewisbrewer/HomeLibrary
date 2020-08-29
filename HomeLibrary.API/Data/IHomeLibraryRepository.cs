@@ -15,5 +15,9 @@ namespace HomeLibrary.API.Data
         Task<User> GetUser(int id);
         Task<Book> GetBook(int id);
         Task<int> SearchForExistingBook(BookForSearchDto bookForSearchDto);
+
+        Task<Book> AddBook(Book book);
+
+        Task<Book> DeleteBook(int id);
     }
 }

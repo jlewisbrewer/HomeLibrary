@@ -12,6 +12,7 @@ namespace HomeLibrary.API.Helpers
             CreateMap<Book, BookForDetailedDto>();
             CreateMap<User, UserForDisplayDto>();
             CreateMap<UserForRegisterDto, User>();
+            CreateMap<BookForRegisterDto, Book>();
         }
     }
 }

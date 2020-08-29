@@ -68,23 +68,44 @@ namespace HomeLibrary.API.Controllers
 
             foreach (var item in booksFromJson.items)
             {
+                System.Console.WriteLine(item);
                 var bookToReturn = new BookForRegisterDto();
                 var bookFromJsonHelper = item.volumeInfo;
+
                 bookToReturn.Title = bookFromJsonHelper.title;
-                bookToReturn.Author = bookFromJsonHelper.authors[0];
-                bookToReturn.Publisher = bookFromJsonHelper.publisher;
-                bookToReturn.Description = bookFromJsonHelper.description;
-                if (bookFromJsonHelper.industryIdentifiers[0].type != "OTHER")
+                if (bookFromJsonHelper.authors != null)
                 {
-                    bookToReturn.Isbn10 = bookFromJsonHelper.industryIdentifiers[1].identifier;
-                    bookToReturn.Isbn13 = bookFromJsonHelper.industryIdentifiers[0].identifier;
+                    bookToReturn.Author = bookFromJsonHelper.authors[0];
+                }
+                if (bookFromJsonHelper.publisher != null)
+                {
+                    bookToReturn.Publisher = bookFromJsonHelper.publisher;
+                }
+                if (bookFromJsonHelper.description != null)
+                {
+                    bookToReturn.Description = bookFromJsonHelper.description;
+                }
+                if (bookFromJsonHelper.industryIdentifiers != null)
+                {
+                    if (bookFromJsonHelper.industryIdentifiers[0].type != "OTHER")
+                    {
+                        foreach (var identifier in bookFromJsonHelper.industryIdentifiers)
+                        {
+                            if (identifier.type == "ISBN_13")
+                                bookToReturn.Isbn13 = identifier.identifier;
+                            if (identifier.type == "ISBN_10")
+                                bookToReturn.Isbn10 = identifier.identifier;
+                        }
+                    }
                 }
                 if (bookFromJsonHelper.pageCount != null)
                 {
                     bookToReturn.PageCount = bookFromJsonHelper.pageCount;
                 }
-                bookToReturn.PhotoUrl = bookFromJsonHelper.imageLinks.thumbnail;
-
+                if (bookFromJsonHelper.imageLinks != null)
+                {
+                    bookToReturn.PhotoUrl = bookFromJsonHelper.imageLinks.thumbnail;
+                }
                 booksToReturn.Add(bookToReturn);
             }
 
@@ -93,5 +114,27 @@ namespace HomeLibrary.API.Controllers
             return Ok(booksToReturn);
 
         }
+
+        [HttpPost("add")]
+        public async Task<IActionResult> AddBook(BookForRegisterDto bookForRegister)
+        {
+            var book = _mapper.Map<Book>(bookForRegister);
+            await _repo.AddBook(book);
+            if (await _repo.SaveAll())
+            {
+                return Ok("Book added.");
+            }
+
+            return BadRequest("Unable to add book.");
+        }
+
+        [HttpPost("delete/{id}")]
+        public async Task<IActionResult> DeleteBook(int id)
+        {
+            var book = await _repo.DeleteBook(id);
+
+            return Ok(book);
+        }
     }
+    
 }
