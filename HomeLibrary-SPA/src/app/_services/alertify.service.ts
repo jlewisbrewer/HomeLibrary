@@ -7,13 +7,13 @@ import * as alertify from 'alertifyjs';
 export class AlertifyService {
   constructor() {}
 
-  confirm(message: string, okCallback: () => any): void {
-    alertify.confirm(message, (e: any) => {
+  confirm(title: string, message: string, okCallback: () => any, error: string): void {
+    alertify.confirm(title, message, (e: any) => {
       if (e) {
-        okCallback;
+        okCallback();
       } else {
       }
-    });
+    }, function(){ alertify.error(error)});
   }
 
   success(message: string): void {

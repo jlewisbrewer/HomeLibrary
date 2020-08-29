@@ -8,7 +8,7 @@ namespace HomeLibrary.API.Helpers
     {
         private static string bookApi = "https://www.googleapis.com/books/v1/volumes?q=";
 
-        private static string fieldRestriction = "&fields=items(volumeInfo/title, volumeInfo/authors, volumeInfo/publisher, volumeInfo/description, volumeInfo/industryIdentifiers, volumeInfo/pageCount, volumeInfo/imageLinks)";
+        private static string fieldRestriction = "&fields=items(volumeInfo/title, volumeInfo/authors, volumeInfo/publisher, volumeInfo/description, volumeInfo/industryIdentifiers, volumeInfo/pageCount, volumeInfo/imageLinks)&maxResults=18";
         public static async Task<string> Search(BookForSearchDto bookForSearchDto)
         {
             var searchParameter = InitializeSearchParameter(bookForSearchDto);

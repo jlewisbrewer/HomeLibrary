@@ -47,12 +47,14 @@ namespace HomeLibrary.API.Controllers
         {
 
             var bookId = await _repo.SearchForExistingBook(bookForSearchDto);
+            var booksToReturn = new List<BookForRegisterDto>();
             if (bookId != -1)
             {
                 var book = await _repo.GetBook(bookId);
-                var bookToReturn = _mapper.Map<BookForDetailedDto>(book);
+                var bookToReturn = _mapper.Map<BookForRegisterDto>(book);
+                booksToReturn.Add(bookToReturn);
 
-                return Ok(bookToReturn);
+                return Ok(booksToReturn);
             }
 
             var responseString = await BookSearch.Search(bookForSearchDto);
@@ -63,11 +65,9 @@ namespace HomeLibrary.API.Controllers
                 return BadRequest("Unable to find book");
             }
 
-            var booksToReturn = new List<BookForRegisterDto>();
 
             foreach (var item in booksFromJson.items)
             {
-                System.Console.WriteLine(item);
                 var bookToReturn = new BookForRegisterDto();
                 var bookFromJsonHelper = item.volumeInfo;
                 bookToReturn.Title = bookFromJsonHelper.title;
