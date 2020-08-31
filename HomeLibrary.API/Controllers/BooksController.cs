@@ -115,19 +115,7 @@ namespace HomeLibrary.API.Controllers
 
         }
 
-        [HttpPost("add")]
-        public async Task<IActionResult> AddBook(BookForRegisterDto bookForRegister)
-        {
-            var book = _mapper.Map<Book>(bookForRegister);
-            await _repo.AddBook(book);
-            if (await _repo.SaveAll())
-            {
-                return Ok("Book added.");
-            }
-
-            return BadRequest("Unable to add book.");
-        }
-
+        
         [HttpPost("delete/{id}")]
         public async Task<IActionResult> DeleteBook(int id)
         {

@@ -13,11 +13,13 @@ namespace HomeLibrary.API.Data
         Task<IEnumerable<Book>> GetBooks();
         Task<IEnumerable<Book>> GetUserBooks(int id);
         Task<User> GetUser(int id);
+        Task<UserBook> GetUserBook(int userId, int bookId);
         Task<Book> GetBook(int id);
+        Task<bool> RemoveUserBook(UserBook userBook);
         Task<int> SearchForExistingBook(BookForSearchDto bookForSearchDto);
-
         Task<Book> AddBook(Book book);
-
         Task<Book> DeleteBook(int id);
+        Task<UserBook> AddUserBook(UserBook userBook);
+
     }
 }

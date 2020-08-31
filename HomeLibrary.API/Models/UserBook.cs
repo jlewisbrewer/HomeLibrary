@@ -11,6 +11,5 @@ namespace HomeLibrary.API.Models
         public Book Book { get; set; }
         public int Read { get; set; }
         public ICollection<UserBookCategory> UserBookCategories { get; set; }
-
     }
 }

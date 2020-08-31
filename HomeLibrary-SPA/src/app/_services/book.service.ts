@@ -47,8 +47,7 @@ export class BookService {
   }
 
   addBookToLibrary(selectedBook) {
-    console.log(selectedBook);
-    return;
+    return this.http.post<any>(this.baseUrl + 'books/add', selectedBook);
   }
 
   // addBooksToTest() {
