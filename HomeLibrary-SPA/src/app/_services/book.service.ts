@@ -46,9 +46,9 @@ export class BookService {
       );
   }
 
-  addBookToLibrary(selectedBook) {
-    return this.http.post<any>(this.baseUrl + 'books/add', selectedBook);
-  }
+  // addBookToLibrary(selectedBook) {
+  //   return this.http.post<any>(this.baseUrl + 'books/add', selectedBook);
+  // }
 
   // addBooksToTest() {
   //   this.books = [
