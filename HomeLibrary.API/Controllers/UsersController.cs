@@ -64,7 +64,7 @@ namespace HomeLibrary.API.Controllers
 
                 System.Console.WriteLine(userBook);
                 if (await _repo.SaveAll())
-                    return Ok("Book added.");
+                    return Ok(userBook);
                 
                 return BadRequest("Unable to add book to library.");
             }

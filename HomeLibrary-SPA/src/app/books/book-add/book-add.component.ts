@@ -47,6 +47,7 @@ export class BookAddComponent implements OnInit {
             },
             (error) => {
               console.log('error');
+              console.log(error);
               this.alertify.error(error);
             },
             () => {
@@ -56,9 +57,12 @@ export class BookAddComponent implements OnInit {
               ]);
             }
           ),
-      'Canceled'
+      () => {
+        this.alertify.error('Canceled');
+      }
     );
 
     console.log(this.selectedBook);
   }
 }
+
