@@ -37,10 +37,7 @@ export class BookService {
         map((response: any) => {
           const books = response;
           if (books) {
-            // console.log(books);
             this.books = books;
-            // console.log("we are here:");
-            // console.log(this.books);
           }
         })
       );

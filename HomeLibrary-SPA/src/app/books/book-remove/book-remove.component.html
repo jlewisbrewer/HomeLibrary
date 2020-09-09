@@ -1,3 +1,23 @@
-<p>
-  book-remove works!
-</p>
+<div>
+  <h2 class="text-center mt-4">Select a Book to Remove from your Library</h2>
+  <div class="container mt-5">
+    <div class="row">
+      <div *ngFor="let book of books" class="book-card col-lg-2 col-md-3 col-sm-6" (click)="selectBook(book)">
+        <div class="card-img-wrapper">
+          <img
+            class="card-img-top"
+            src="{{ book.photoUrl }}"
+            alt="{{ book.title }}"
+          />
+        </div>
+        <div class="card-body p-1">
+          <h6 class="card-title text-center mb-1">
+            <i class="fa fa-book"></i>
+            {{ book.title }}
+          </h6>
+          <p class="card-text text-muted text-center">{{ book.author }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

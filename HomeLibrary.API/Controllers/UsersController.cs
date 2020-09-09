@@ -80,7 +80,7 @@ namespace HomeLibrary.API.Controllers
             var userBook = await _repo.GetUserBook(user.Id, bookId);
 
             if (await _repo.RemoveUserBook(userBook))
-                return Ok("Book removed.");
+                return Ok(userBook);
             
             return BadRequest("Unable to remove book");
         }

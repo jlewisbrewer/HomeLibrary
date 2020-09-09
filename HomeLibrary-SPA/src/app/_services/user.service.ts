@@ -31,4 +31,8 @@ export class UserService {
   addBookToLibrary(id: number, selectedBook: BookForRegister) {
     return this.http.post<any>(this.baseUrl + 'users/' + id + '/books/add', selectedBook);
   }
+
+  removeBookFromLibrary(id: number, selectedBook: Book) {
+    return this.http.post<any>(this.baseUrl + 'users/' + id + '/books/remove', selectedBook);
+  }
 }
