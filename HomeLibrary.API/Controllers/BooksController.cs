@@ -68,7 +68,6 @@ namespace HomeLibrary.API.Controllers
 
             foreach (var item in booksFromJson.items)
             {
-                System.Console.WriteLine(item);
                 var bookToReturn = new BookForRegisterDto();
                 var bookFromJsonHelper = item.volumeInfo;
 
@@ -108,8 +107,6 @@ namespace HomeLibrary.API.Controllers
                 }
                 booksToReturn.Add(bookToReturn);
             }
-
-            System.Console.WriteLine(booksToReturn.Count);
 
             return Ok(booksToReturn);
 
