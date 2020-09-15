@@ -45,17 +45,16 @@ namespace HomeLibrary.API.Controllers
         [HttpPost("search")]
         public async Task<IActionResult> Search(BookForSearchDto bookForSearchDto)
         {
-
-            var bookId = await _repo.SearchForExistingBook(bookForSearchDto);
+            // var bookId = await _repo.SearchForExistingBook(bookForSearchDto);
             var booksToReturn = new List<BookForRegisterDto>();
-            if (bookId != -1)
-            {
-                var book = await _repo.GetBook(bookId);
-                var bookToReturn = _mapper.Map<BookForRegisterDto>(book);
-                booksToReturn.Add(bookToReturn);
+            // if (bookId != -1)
+            // {
+            //     var book = await _repo.GetBook(bookId);
+            //     var bookToReturn = _mapper.Map<BookForRegisterDto>(book);
+            //     booksToReturn.Add(bookToReturn);
 
-                return Ok(booksToReturn);
-            }
+            //     return Ok(booksToReturn);
+            // }
 
             var responseString = await BookSearch.Search(bookForSearchDto);
             var booksFromJson = JsonConvert.DeserializeObject<dynamic>(responseString);

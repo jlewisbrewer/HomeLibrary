@@ -110,20 +110,31 @@ namespace HomeLibrary.API.Data
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public async Task<int> SearchForExistingBook(BookForSearchDto bookForSearchDto)
+        public async Task<int> SearchForExistingBook(BookForRegisterDto bookForRegisterDto)
         {
             var id = -1;
-            if (await _context.Books.AnyAsync(x => x.Isbn10 == bookForSearchDto.Isbn))
-                id = (await _context.Books.FirstOrDefaultAsync(x => x.Isbn10 == bookForSearchDto.Isbn)).Id;
-            
-            if (await _context.Books.AnyAsync(x => x.Isbn13 == bookForSearchDto.Isbn))
-                id = (await _context.Books.FirstOrDefaultAsync(x => x.Isbn13 == bookForSearchDto.Isbn)).Id;
-
-            if (await _context.Books.AnyAsync(x => x.Title.ToLower() == bookForSearchDto.Title.ToLower() && x.Author.ToLower() == bookForSearchDto.Author.ToLower()))
-                id = (await _context.Books.FirstOrDefaultAsync(x => x.Title.ToLower() == bookForSearchDto.Title.ToLower() && x.Author.ToLower() == bookForSearchDto.Author.ToLower())).Id;
-
+            if (await _context.Books.AnyAsync(x => x.Isbn10 == bookForRegisterDto.Isbn10))
+            {   
+                id = (await _context.Books.FirstOrDefaultAsync(x => x.Isbn10 == bookForRegisterDto.Isbn10)).Id;
+            }
+            if (await _context.Books.AnyAsync(x => x.Isbn13 == bookForRegisterDto.Isbn13))
+            {
+                id = (await _context.Books.FirstOrDefaultAsync(x => x.Isbn13 == bookForRegisterDto.Isbn13)).Id;
+            }
+            if (await _context.Books.AnyAsync(x => x.Title.ToLower() == bookForRegisterDto.Title.ToLower() && x.Author.ToLower() == bookForRegisterDto.Author.ToLower()))
+            {   
+                id = (await _context.Books.FirstOrDefaultAsync(x => x.Title.ToLower() == bookForRegisterDto.Title.ToLower() && x.Author.ToLower() == bookForRegisterDto.Author.ToLower())).Id;
+            }
             return id;
         }
 
+        public async Task<int> SearchForExistingUserBook(UserBookDto userBookDto)
+        {
+            var id = -1;
+            if (await _context.UserBooks.AnyAsync(x => x.BookId == userBookDto.BookId && x.UserId == userBookDto.UserId))
+                id = (await _context.UserBooks.FirstOrDefaultAsync(x => x.BookId == userBookDto.BookId && x.UserId == userBookDto.UserId)).UserBookId;
+
+            return id;
+        }
     }
 }

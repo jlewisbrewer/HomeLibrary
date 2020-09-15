@@ -42,46 +42,62 @@ namespace HomeLibrary.API.Controllers
         [HttpPost("{id}/books/add")]
         public async Task<IActionResult> AddBook(BookForRegisterDto bookForRegister, int id)
         {
-            // First add book to book repo
-            var book = _mapper.Map<Book>(bookForRegister);
-            await _repo.AddBook(book);
-            if (await _repo.SaveAll())
+            var bookId = await _repo.SearchForExistingBook(bookForRegister);
+            var book = new Book();
+
+            if (bookId != -1)
             {
-                // Then need to add to UserBook repo
-                var user = await _repo.GetUser(id);
-                var userBookDto = new UserBookDto
-                {
-                    UserId = user.Id,
-                    User = user,
-                    BookId = book.Id,
-                    Book = book,
-                    Read = 0
-                };
-
-                var userBook = _mapper.Map<UserBook>(userBookDto);
-
-                userBook = await _repo.AddUserBook(userBook);
-
-                System.Console.WriteLine(userBook);
-                if (await _repo.SaveAll())
-                    return Ok(userBook);
-                
-                return BadRequest("Unable to add book to library.");
+                System.Console.WriteLine(bookId);
+                book = await _repo.GetBook(bookId);
+            }
+            else 
+            {
+                book = _mapper.Map<Book>(bookForRegister);
+                await _repo.AddBook(book);
+                await _repo.SaveAll();
             }
 
-            return BadRequest("Unable to add book to database.");
+            var user = await _repo.GetUser(id);
+            var userBookDto = new UserBookDto
+            {
+                UserId = user.Id,
+                User = user,
+                BookId = book.Id,
+                Book = book,
+                Read = 0
+            };
+
+            var userBookId = await _repo.SearchForExistingUserBook(userBookDto);
+            if (userBookId != -1)
+            {
+                return BadRequest("Book already in your library.");
+            }
+
+            var userBook = _mapper.Map<UserBook>(userBookDto);
+            userBook = await _repo.AddUserBook(userBook);
+
+            System.Console.WriteLine(userBook);
+            if (await _repo.SaveAll())
+                return Ok(userBook);
+            
+            return BadRequest("Unable to add book to library.");
         }
 
         [HttpPost("{id}/books/remove")]
-        public async Task<IActionResult> RemoveBook(BookForSearchDto bookForSearchDto, int id)
+        public async Task<IActionResult> RemoveBook(BookForRegisterDto bookForRegisterDto, int id)
         {
-            var bookId = await _repo.SearchForExistingBook(bookForSearchDto);
+            var bookId = await _repo.SearchForExistingBook(bookForRegisterDto);
+            System.Console.WriteLine("book Id");
+            System.Console.WriteLine(bookId);
             var user = await _repo.GetUser(id);
             var userBook = await _repo.GetUserBook(user.Id, bookId);
 
+
             if (await _repo.RemoveUserBook(userBook))
+            {
+                await _repo.SaveAll();
                 return Ok(userBook);
-            
+            }
             return BadRequest("Unable to remove book");
         }
 

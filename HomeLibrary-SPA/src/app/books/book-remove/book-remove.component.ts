@@ -9,24 +9,34 @@ import { AuthService } from 'src/app/_services/auth.service';
 @Component({
   selector: 'app-book-remove',
   templateUrl: './book-remove.component.html',
-  styleUrls: ['./book-remove.component.css']
+  styleUrls: ['./book-remove.component.css'],
 })
 export class BookRemoveComponent implements OnInit {
   books: Book[];
   selectedBook: Book;
 
-  constructor(private bookService: BookService, private alertify: AlertifyService, private route: ActivatedRoute, private userService: UserService, private authService: AuthService, private router: Router) {}
+  constructor(
+    private bookService: BookService,
+    private alertify: AlertifyService,
+    private route: ActivatedRoute,
+    private userService: UserService,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.loadBooks();
   }
 
   loadBooks() {
-    this.bookService.getUserBooks(+this.route.snapshot.params['id']).subscribe((books: Book[]) =>{
-      this.books = books;
-    }, error =>{
-      this.alertify.error(error);
-    });
+    this.bookService.getUserBooks(+this.route.snapshot.params['id']).subscribe(
+      (books: Book[]) => {
+        this.books = books;
+      },
+      (error) => {
+        this.alertify.error(error);
+      }
+    );
   }
 
   selectBook(book: Book) {
@@ -66,5 +76,3 @@ export class BookRemoveComponent implements OnInit {
     console.log(this.selectedBook);
   }
 }
-
-

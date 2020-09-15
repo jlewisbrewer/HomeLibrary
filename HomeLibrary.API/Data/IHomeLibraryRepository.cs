@@ -16,7 +16,8 @@ namespace HomeLibrary.API.Data
         Task<UserBook> GetUserBook(int userId, int bookId);
         Task<Book> GetBook(int id);
         Task<bool> RemoveUserBook(UserBook userBook);
-        Task<int> SearchForExistingBook(BookForSearchDto bookForSearchDto);
+        Task<int> SearchForExistingBook(BookForRegisterDto bookForRegisterDto);
+        Task<int> SearchForExistingUserBook(UserBookDto userBookDto);
         Task<Book> AddBook(Book book);
         Task<Book> DeleteBook(int id);
         Task<UserBook> AddUserBook(UserBook userBook);
