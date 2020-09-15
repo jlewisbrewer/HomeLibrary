@@ -16,15 +16,20 @@
             <strong>Publisher:</strong>
             <p>{{book?.publisher}}</p>
           </div>
-          <div>
-            <strong>Number of pages:</strong>
-            <p>{{book?.pageCount}}</p>
-          </div>
         </div>
       </div>
     </div>
     <div class="col-sm-8">
-
+      <div class="tab-panel">
+        <tabset class="book-tabset">
+          <tab heading="Details">
+            <h4>Description</h4>
+            <p>{{ book.description }}</p>
+            <h4>Page Count</h4>
+            <p>{{book.pageCount }}</p>
+          </tab>
+        </tabset>
+      </div>
     </div>
   </div>
 </div>

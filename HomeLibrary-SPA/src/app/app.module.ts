@@ -7,6 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -47,6 +49,7 @@ export function tokenGetter() {
       FormsModule,
       ReactiveFormsModule,
       BrowserAnimationsModule,
+      TabsModule.forRoot(),
       BsDropdownModule.forRoot(),
       RouterModule.forRoot(appRoutes),
       JwtModule.forRoot({
@@ -55,7 +58,7 @@ export function tokenGetter() {
             allowedDomains: ['localhost:5000'],
             disallowedRoutes: ['localhost:5000/api/auth']
          }
-      })
+      }),
    ],
    providers: [
       AuthService,
