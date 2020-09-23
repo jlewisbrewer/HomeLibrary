@@ -6,7 +6,7 @@
         <div class="card-img-wrapper">
           <img
             class="card-img-top"
-            src="{{ book.photoUrl }}"
+            src="{{ book.photoUrl ||  '../../../assets/default_book_cover.jpg'}}"
             alt="{{ book.title }}"
           />
         </div>
