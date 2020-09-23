@@ -9,7 +9,7 @@ This application is built using ASP.NET for the back end and Angular for the fro
     "Token": "YOUR SALT HERE"
   }``
   
-  To run the server, you need to navigate to the `HomeLibrary.APi` folder and build and run 
+  To run the server, you need to navigate to the `HomeLibrary.API` folder and build and run 
 the project using dotnet:
 
 `dotnet build`

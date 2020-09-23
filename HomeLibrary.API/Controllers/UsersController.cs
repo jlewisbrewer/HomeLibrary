@@ -23,14 +23,6 @@ namespace HomeLibrary.API.Controllers
 
         }
 
-        // [HttpGet("{id}")]
-        // public async Task<IActionResult> GetUser(int id)
-        // {
-        //     var user = await _repo.GetUser(id);
-        //     // var userToReturn = await _mapper.Map<UserForDisplayDto>(user);
-        //     return Ok(user);
-        // }
-
         [HttpGet("{id}/books", Name = "GetUserBooks")]
         public async Task<IActionResult> GetUserBooks(int id)
         {
@@ -50,7 +42,7 @@ namespace HomeLibrary.API.Controllers
                 System.Console.WriteLine(bookId);
                 book = await _repo.GetBook(bookId);
             }
-            else 
+            else
             {
                 book = _mapper.Map<Book>(bookForRegister);
                 await _repo.AddBook(book);
@@ -79,7 +71,7 @@ namespace HomeLibrary.API.Controllers
             System.Console.WriteLine(userBook);
             if (await _repo.SaveAll())
                 return Ok(userBook);
-            
+
             return BadRequest("Unable to add book to library.");
         }
 
