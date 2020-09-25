@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HomeLibrary.API.Dtos;
+using HomeLibrary.API.Helpers;
 using HomeLibrary.API.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -85,18 +86,17 @@ namespace HomeLibrary.API.Data
             return userBook;
         }
 
-        public async Task<IEnumerable<Book>> GetUserBooks(int id)
+        public async Task<PagedList<Book>> GetUserBooks(int id, UserParams userParams)
         {
             var booksIds = await _context.UserBooks
                 .Where(x => x.UserId == id)
                 .Select(x => x.BookId)
                 .ToListAsync();
 
-            var booksToReturn = await _context.Books
-                .Where(x => booksIds.Contains(x.Id))
-                .ToListAsync();
+            var booksToReturn = _context.Books
+                .Where(x => booksIds.Contains(x.Id));
 
-            return booksToReturn;
+            return await PagedList<Book>.CreateAsync(booksToReturn, userParams.PageNumber, userParams.PageSize);
         }
 
         public async Task<bool> RemoveUserBook(UserBook userBook)

@@ -1,6 +1,7 @@
+import { PaginatedResult } from './../_models/pagination';
 import { BookForRegister } from './../_models/bookForRegister';
 import { Book } from './../_models/book';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -13,9 +14,7 @@ export class BookService {
   baseUrl = environment.apiUrl;
   books: BookForRegister[];
 
-  constructor(private http: HttpClient) {
-    // this.addBooksToTest();
-  }
+  constructor(private http: HttpClient) {}
 
   // This will have to be changed for specific users
   getBooks(): Observable<Book[]> {
@@ -26,8 +25,34 @@ export class BookService {
     return this.http.get<Book>(this.baseUrl + 'books/' + id);
   }
 
-  getUserBooks(id): Observable<Book[]> {
-    return this.http.get<Book[]>(this.baseUrl + 'users/' + id + '/books/');
+  getUserBooks(id, page?, itemsPerPage?): Observable<PaginatedResult<Book[]>> {
+    const paginatedResult: PaginatedResult<Book[]> = new PaginatedResult<
+      Book[]
+    >();
+
+    let params = new HttpParams();
+
+    if (page != null && itemsPerPage != null) {
+      params = params.append('pageNumber', page);
+      params = params.append('pageSize', itemsPerPage);
+    }
+
+    return this.http
+      .get<Book[]>(this.baseUrl + 'users/' + id + '/books/', {
+        observe: 'response',
+        params,
+      })
+      .pipe(
+        map((response) => {
+          paginatedResult.result = response.body;
+          if (response.headers.get('Pagination') != null) {
+            paginatedResult.pagination = JSON.parse(
+              response.headers.get('Pagination')
+            );
+          }
+          return paginatedResult;
+        })
+      );
   }
 
   getSearchResults(searchFormValues) {

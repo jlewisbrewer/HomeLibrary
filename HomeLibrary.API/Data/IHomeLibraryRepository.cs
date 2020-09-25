@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using HomeLibrary.API.Dtos;
+using HomeLibrary.API.Helpers;
 using HomeLibrary.API.Models;
 
 namespace HomeLibrary.API.Data
@@ -11,7 +12,7 @@ namespace HomeLibrary.API.Data
         void Delete<T>(T entity) where T : class;
         Task<bool> SaveAll();
         Task<IEnumerable<Book>> GetBooks();
-        Task<IEnumerable<Book>> GetUserBooks(int id);
+        Task<PagedList<Book>> GetUserBooks(int id, UserParams userParams);
         Task<User> GetUser(int id);
         Task<UserBook> GetUserBook(int userId, int bookId);
         Task<Book> GetBook(int id);

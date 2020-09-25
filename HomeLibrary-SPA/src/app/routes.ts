@@ -1,3 +1,5 @@
+import { UserLibraryResolver } from './_resolvers/user-library.resolver';
+import { User } from './_models/user';
 import { UserLibraryComponent } from './users/user-library/user-library.component';
 import { BookDetailComponent } from './books/book-detail/book-detail.component';
 import { AuthGuard } from './_guards/auth.guard';
@@ -15,7 +17,7 @@ export const appRoutes: Routes = [
     runGuardsAndResolvers: 'always',
     canActivate: [AuthGuard],
     children: [
-      { path: 'users/:id', component: UserLibraryComponent},
+      { path: 'users/:id', component: UserLibraryComponent, resolve: { books: UserLibraryResolver}},
       { path: 'books', component: BookListComponent },
       { path: 'books/:id', component: BookDetailComponent},
       { path: 'users/:id/search', component: BookSearchComponent },

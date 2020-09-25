@@ -30,8 +30,8 @@ export class BookRemoveComponent implements OnInit {
 
   loadBooks() {
     this.bookService.getUserBooks(+this.route.snapshot.params['id']).subscribe(
-      (books: Book[]) => {
-        this.books = books;
+      (books) => {
+        this.books = books.result;
       },
       (error) => {
         this.alertify.error(error);

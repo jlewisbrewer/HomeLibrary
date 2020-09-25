@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using HomeLibrary.API.Data;
 using HomeLibrary.API.Dtos;
+using HomeLibrary.API.Helpers;
 using HomeLibrary.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -24,10 +25,14 @@ namespace HomeLibrary.API.Controllers
         }
 
         [HttpGet("{id}/books", Name = "GetUserBooks")]
-        public async Task<IActionResult> GetUserBooks(int id)
+        public async Task<IActionResult> GetUserBooks(int id, [FromQuery]UserParams userParams)
         {
-            var books = await _repo.GetUserBooks(id);
+            var books = await _repo.GetUserBooks(id, userParams);
+
             var booksToReturn = _mapper.Map<IEnumerable<BookForListDto>>(books);
+            
+            Response.AddPagination(books.CurrentPage, books.PageSize, books.TotalCount, books.TotalPages);
+
             return Ok(booksToReturn);
         }
 
