@@ -22,7 +22,7 @@ export const appRoutes: Routes = [
       { path: 'books/:id', component: BookDetailComponent},
       { path: 'users/:id/search', component: BookSearchComponent },
       { path: 'users/:id/add', component: BookAddComponent },
-      { path: 'users/:id/remove', component: BookRemoveComponent }
+      { path: 'users/:id/remove', component: BookRemoveComponent, resolve: {books: UserLibraryResolver}}
     ]
   },
 

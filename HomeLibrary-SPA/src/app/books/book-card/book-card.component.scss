@@ -4,6 +4,10 @@
     transition-timing-function: ease-in-out;
 }
 
+.card {
+    margin: 5px;
+}
+
 .card img {
     transform: scale(1.0, 1.0);
     transition-duration: 500ms;

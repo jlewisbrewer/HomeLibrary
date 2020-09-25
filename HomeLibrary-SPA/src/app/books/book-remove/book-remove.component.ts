@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { Book } from 'src/app/_models/book';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/_services/auth.service';
+import { PaginatedResult, Pagination } from 'src/app/_models/pagination';
 
 @Component({
   selector: 'app-book-remove',
@@ -13,6 +14,8 @@ import { AuthService } from 'src/app/_services/auth.service';
 })
 export class BookRemoveComponent implements OnInit {
   books: Book[];
+  pagination: Pagination;
+  showBoundaryLinks = true;
   selectedBook: Book;
 
   constructor(
@@ -24,22 +27,39 @@ export class BookRemoveComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.route.data.subscribe((data) => {
+      this.books = data['books'].result;
+      this.pagination = data['books'].pagination;
+    });
+  }
+
+  pageChanged(event: any): void {
+    this.pagination.currentPage = event.page;
+    console.log(this.pagination.currentPage);
     this.loadBooks();
   }
 
-  loadBooks() {
-    this.bookService.getUserBooks(+this.route.snapshot.params['id']).subscribe(
-      (books) => {
-        this.books = books.result;
-      },
-      (error) => {
-        this.alertify.error(error);
-      }
-    );
+  loadBooks(): void {
+    this.bookService
+      .getUserBooks(
+        +this.route.snapshot.params['id'],
+        this.pagination.currentPage,
+        this.pagination.itemsPerPage
+      )
+      .subscribe(
+        (res: PaginatedResult<Book[]>) => {
+          this.books = res.result;
+          this.pagination = res.pagination;
+        },
+        (error) => {
+          this.alertify.error(error);
+        }
+      );
   }
 
-  selectBook(book: Book) {
+
+  selectBook(book: Book): void {
     this.selectedBook = book;
     console.log(this.selectedBook);
     this.alertify.confirm(
