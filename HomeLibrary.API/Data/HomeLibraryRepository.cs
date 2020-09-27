@@ -95,6 +95,15 @@ namespace HomeLibrary.API.Data
 
             var booksToReturn = _context.Books
                 .Where(x => booksIds.Contains(x.Id));
+            
+            if (!string.IsNullOrEmpty(userParams.AuthorFilter))
+                booksToReturn = booksToReturn.Where(x => x.Author == userParams.AuthorFilter.ToLower());
+            
+            if (!string.IsNullOrEmpty(userParams.TitleFilter))
+                booksToReturn = booksToReturn.Where(x => x.Title == userParams.TitleFilter.ToLower());
+            
+            if (!string.IsNullOrEmpty(userParams.PublisherFilter))
+                booksToReturn = booksToReturn.Where(x => x.Publisher == userParams.PublisherFilter.ToLower());
 
             return await PagedList<Book>.CreateAsync(booksToReturn, userParams.PageNumber, userParams.PageSize);
         }

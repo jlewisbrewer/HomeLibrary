@@ -11,5 +11,9 @@ namespace HomeLibrary.API.Helpers
             set { pageSize = (value > MaxPageSize) ? MaxPageSize : value; }
         }                   
 
+        public string AuthorFilter { get; set; }
+        public string TitleFilter { get; set; }
+        public string PublisherFilter { get; set; }
+
     }
 }
