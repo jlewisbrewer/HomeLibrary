@@ -95,15 +95,15 @@ namespace HomeLibrary.API.Data
 
             var booksToReturn = _context.Books
                 .Where(x => booksIds.Contains(x.Id));
-            
+
             if (!string.IsNullOrEmpty(userParams.AuthorFilter))
-                booksToReturn = booksToReturn.Where(x => x.Author == userParams.AuthorFilter.ToLower());
-            
+                booksToReturn = booksToReturn.Where(x => x.Author.ToLower().Contains(userParams.AuthorFilter.ToLower()));
+
             if (!string.IsNullOrEmpty(userParams.TitleFilter))
-                booksToReturn = booksToReturn.Where(x => x.Title == userParams.TitleFilter.ToLower());
+                booksToReturn = booksToReturn.Where(x => x.Title.ToLower().Contains(userParams.TitleFilter.ToLower()));
             
             if (!string.IsNullOrEmpty(userParams.PublisherFilter))
-                booksToReturn = booksToReturn.Where(x => x.Publisher == userParams.PublisherFilter.ToLower());
+                booksToReturn = booksToReturn.Where(x => x.Publisher.ToLower().Contains(userParams.PublisherFilter.ToLower()));
 
             return await PagedList<Book>.CreateAsync(booksToReturn, userParams.PageNumber, userParams.PageSize);
         }
@@ -123,7 +123,7 @@ namespace HomeLibrary.API.Data
         {
             var id = -1;
             if (await _context.Books.AnyAsync(x => x.Isbn10 == bookForRegisterDto.Isbn10))
-            {   
+            {
                 id = (await _context.Books.FirstOrDefaultAsync(x => x.Isbn10 == bookForRegisterDto.Isbn10)).Id;
             }
             if (await _context.Books.AnyAsync(x => x.Isbn13 == bookForRegisterDto.Isbn13))
@@ -131,7 +131,7 @@ namespace HomeLibrary.API.Data
                 id = (await _context.Books.FirstOrDefaultAsync(x => x.Isbn13 == bookForRegisterDto.Isbn13)).Id;
             }
             if (await _context.Books.AnyAsync(x => x.Title.ToLower() == bookForRegisterDto.Title.ToLower() && x.Author.ToLower() == bookForRegisterDto.Author.ToLower()))
-            {   
+            {
                 id = (await _context.Books.FirstOrDefaultAsync(x => x.Title.ToLower() == bookForRegisterDto.Title.ToLower() && x.Author.ToLower() == bookForRegisterDto.Author.ToLower())).Id;
             }
             return id;
