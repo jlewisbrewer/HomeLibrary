@@ -13,6 +13,7 @@ import { ActivatedRoute } from '@angular/router';
 export class UserLibraryComponent implements OnInit {
   books: Book[];
   pagination: Pagination;
+  userParams: any = {};
   showBoundaryLinks = true;
 
   constructor(
@@ -26,6 +27,17 @@ export class UserLibraryComponent implements OnInit {
       this.books = data['books'].result;
       this.pagination = data['books'].pagination;
     });
+
+    this.userParams.authorFilter = '';
+    this.userParams.titleFilter = '';
+    this.userParams.publisherFilter = '';
+  }
+
+  resetFilters(): void {
+    this.userParams.authorFilter = '';
+    this.userParams.titleFilter = '';
+    this.userParams.publisherFilter = '';
+    this.loadBooks();
   }
 
   pageChanged(event: any): void {
@@ -39,7 +51,8 @@ export class UserLibraryComponent implements OnInit {
       .getUserBooks(
         +this.route.snapshot.params['id'],
         this.pagination.currentPage,
-        this.pagination.itemsPerPage
+        this.pagination.itemsPerPage,
+        this.userParams
       )
       .subscribe(
         (res: PaginatedResult<Book[]>) => {

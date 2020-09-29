@@ -25,7 +25,7 @@ export class BookService {
     return this.http.get<Book>(this.baseUrl + 'books/' + id);
   }
 
-  getUserBooks(id, page?, itemsPerPage?): Observable<PaginatedResult<Book[]>> {
+  getUserBooks(id, page?, itemsPerPage?, userParams?): Observable<PaginatedResult<Book[]>> {
     const paginatedResult: PaginatedResult<Book[]> = new PaginatedResult<
       Book[]
     >();
@@ -35,6 +35,12 @@ export class BookService {
     if (page != null && itemsPerPage != null) {
       params = params.append('pageNumber', page);
       params = params.append('pageSize', itemsPerPage);
+    }
+
+    if (userParams != null) {
+      params = params.append('authorFilter', userParams.authorFilter);
+      params = params.append('titleFilter', userParams.titleFilter);
+      params = params.append('publisherFilter', userParams.publisherFilter);
     }
 
     return this.http

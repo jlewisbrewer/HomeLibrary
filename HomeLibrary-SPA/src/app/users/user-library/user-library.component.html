@@ -1,4 +1,59 @@
+<div class="text-center mt-3">
+  <h2>You have {{ pagination.totalItems }} books in your library</h2>
+</div>
+
 <div class="container mt-5">
+<h4> Search for books in your library </h4>
+  <form class="form-inline" #form="ngForm" (ngSubmit)="loadBooks()" novalidate>
+    <div class="form-group">
+      <label for="author">Author</label>
+      <input
+        type="string"
+        class="form-control ml-1"
+        style="width: 150px"
+        id="author"
+        [(ngModel)]="userParams.authorFilter"
+        name="author"
+      />
+    </div>
+
+    <div class="form-group px-2">
+      <label for="Title">Title</label>
+      <input
+        type="string"
+        class="form-control ml-1"
+        style="width: 150px"
+        id="title"
+        [(ngModel)]="userParams.titleFilter"
+        name="title"
+      />
+    </div>
+
+    <div class="form-group px-2">
+      <label for="Publisher">Publisher</label>
+      <input
+        type="string"
+        class="form-control ml-1"
+        style="width: 150px"
+        id="publisher"
+        [(ngModel)]="userParams.publisherFilter"
+        name="publisher"
+      />
+    </div>
+
+    <button type="submit" class="btn btn-primary" style="margin-left: 10px">
+      Apply Filters
+    </button>
+    <button
+      type="button"
+      class="btn btn-info"
+      (click)="resetFilters()"
+      style="margin-left: 10px"
+    >
+      Reset Filter
+    </button>
+  </form>
+  <br />
   <div class="row">
     <div *ngFor="let book of books" class="col-lg-2 col-md-3 col-sm-6">
       <app-book-card [book]="book"></app-book-card>
