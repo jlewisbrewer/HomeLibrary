@@ -15,5 +15,6 @@ namespace HomeLibrary.API.Helpers
         public string TitleFilter { get; set; }
         public string PublisherFilter { get; set; }
 
+        public string OrderBy { get; set; }
     }
 }

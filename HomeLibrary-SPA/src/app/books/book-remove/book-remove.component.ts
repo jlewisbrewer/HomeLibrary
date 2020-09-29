@@ -15,6 +15,7 @@ import { PaginatedResult, Pagination } from 'src/app/_models/pagination';
 export class BookRemoveComponent implements OnInit {
   books: Book[];
   pagination: Pagination;
+  userParams: any = {};
   showBoundaryLinks = true;
   selectedBook: Book;
 
@@ -32,6 +33,18 @@ export class BookRemoveComponent implements OnInit {
       this.books = data['books'].result;
       this.pagination = data['books'].pagination;
     });
+
+    this.userParams.authorFilter = '';
+    this.userParams.titleFilter = '';
+    this.userParams.publisherFilter = '';
+    this.userParams.orderBy = 'default';
+  }
+
+  resetFilters(): void {
+    this.userParams.authorFilter = '';
+    this.userParams.titleFilter = '';
+    this.userParams.publisherFilter = '';
+    this.loadBooks();
   }
 
   pageChanged(event: any): void {
@@ -45,7 +58,8 @@ export class BookRemoveComponent implements OnInit {
       .getUserBooks(
         +this.route.snapshot.params['id'],
         this.pagination.currentPage,
-        this.pagination.itemsPerPage
+        this.pagination.itemsPerPage,
+        this.userParams
       )
       .subscribe(
         (res: PaginatedResult<Book[]>) => {
@@ -57,7 +71,6 @@ export class BookRemoveComponent implements OnInit {
         }
       );
   }
-
 
   selectBook(book: Book): void {
     this.selectedBook = book;

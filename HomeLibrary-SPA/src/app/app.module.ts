@@ -10,6 +10,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
 
 
 
@@ -55,6 +56,7 @@ export function tokenGetter() {
       TabsModule.forRoot(),
       BsDropdownModule.forRoot(),
       PaginationModule.forRoot(),
+      ButtonsModule.forRoot(),
       RouterModule.forRoot(appRoutes),
       JwtModule.forRoot({
          config: {

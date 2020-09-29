@@ -3,7 +3,7 @@
 </div>
 
 <div class="container mt-5">
-<h4> Search for books in your library </h4>
+  <h4>Search for books in your library</h4>
   <form class="form-inline" #form="ngForm" (ngSubmit)="loadBooks()" novalidate>
     <div class="form-group">
       <label for="author">Author</label>
@@ -52,8 +52,33 @@
     >
       Reset Filter
     </button>
+
+  <div class="col">
+    <div class="btn-group float-right">
+      <button type="button" name="orderBy" class="btn btn-primary"
+        [(ngModel)]="userParams.orderBy" (click)="loadBooks()" btnRadio="default" >
+        Default
+      </button>
+      <button type="button" name="orderBy" class="btn btn-primary"
+      [(ngModel)]="userParams.orderBy" (click)="loadBooks()" btnRadio="author">
+        Author
+      </button>
+      <button type="button" name="orderBy" class="btn btn-primary"
+      [(ngModel)]="userParams.orderBy" (click)="loadBooks()" btnRadio="title">
+        Title
+      </button>
+      <button type="button" name="orderBy" class="btn btn-primary"
+      [(ngModel)]="userParams.orderBy" (click)="loadBooks()" btnRadio="publisher">
+        Publisher
+      </button>
+    </div>
+  </div>
+
+
   </form>
   <br />
+
+
   <div class="row">
     <div *ngFor="let book of books" class="col-lg-2 col-md-3 col-sm-6">
       <app-book-card [book]="book"></app-book-card>

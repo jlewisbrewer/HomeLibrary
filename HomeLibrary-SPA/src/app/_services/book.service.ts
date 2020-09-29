@@ -41,6 +41,7 @@ export class BookService {
       params = params.append('authorFilter', userParams.authorFilter);
       params = params.append('titleFilter', userParams.titleFilter);
       params = params.append('publisherFilter', userParams.publisherFilter);
+      params = params.append('orderBy', userParams.orderBy);
     }
 
     return this.http

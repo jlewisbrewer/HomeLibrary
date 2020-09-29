@@ -1,5 +1,81 @@
 <div>
   <h2 class="text-center mt-4">Select a Book to Remove from your Library</h2>
+
+<div class="container mt-5">
+  <h4>Search for books in your library</h4>
+  <form class="form-inline" #form="ngForm" (ngSubmit)="loadBooks()" novalidate>
+    <div class="form-group">
+      <label for="author">Author</label>
+      <input
+        type="string"
+        class="form-control ml-1"
+        style="width: 150px"
+        id="author"
+        [(ngModel)]="userParams.authorFilter"
+        name="author"
+      />
+    </div>
+
+    <div class="form-group px-2">
+      <label for="Title">Title</label>
+      <input
+        type="string"
+        class="form-control ml-1"
+        style="width: 150px"
+        id="title"
+        [(ngModel)]="userParams.titleFilter"
+        name="title"
+      />
+    </div>
+
+    <div class="form-group px-2">
+      <label for="Publisher">Publisher</label>
+      <input
+        type="string"
+        class="form-control ml-1"
+        style="width: 150px"
+        id="publisher"
+        [(ngModel)]="userParams.publisherFilter"
+        name="publisher"
+      />
+    </div>
+
+    <button type="submit" class="btn btn-primary" style="margin-left: 10px">
+      Apply Filters
+    </button>
+    <button
+      type="button"
+      class="btn btn-info"
+      (click)="resetFilters()"
+      style="margin-left: 10px"
+    >
+      Reset Filter
+    </button>
+
+  <div class="col">
+    <div class="btn-group float-right">
+      <button type="button" name="orderBy" class="btn btn-primary"
+        [(ngModel)]="userParams.orderBy" (click)="loadBooks()" btnRadio="default" >
+        Default
+      </button>
+      <button type="button" name="orderBy" class="btn btn-primary"
+      [(ngModel)]="userParams.orderBy" (click)="loadBooks()" btnRadio="author">
+        Author
+      </button>
+      <button type="button" name="orderBy" class="btn btn-primary"
+      [(ngModel)]="userParams.orderBy" (click)="loadBooks()" btnRadio="title">
+        Title
+      </button>
+      <button type="button" name="orderBy" class="btn btn-primary"
+      [(ngModel)]="userParams.orderBy" (click)="loadBooks()" btnRadio="publisher">
+        Publisher
+      </button>
+    </div>
+  </div>
+
+
+  </form>
+  <br />
   <div class="container mb-4">
     <div class="row card-img-wrapper">
       <div *ngFor="let book of books" class="book-card col-lg-2 col-md-3 col-sm-6" (click)="selectBook(book)">

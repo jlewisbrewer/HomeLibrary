@@ -31,6 +31,7 @@ export class UserLibraryComponent implements OnInit {
     this.userParams.authorFilter = '';
     this.userParams.titleFilter = '';
     this.userParams.publisherFilter = '';
+    this.userParams.orderBy = 'default';
   }
 
   resetFilters(): void {

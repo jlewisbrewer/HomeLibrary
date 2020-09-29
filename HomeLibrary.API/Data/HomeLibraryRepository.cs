@@ -104,6 +104,28 @@ namespace HomeLibrary.API.Data
             
             if (!string.IsNullOrEmpty(userParams.PublisherFilter))
                 booksToReturn = booksToReturn.Where(x => x.Publisher.ToLower().Contains(userParams.PublisherFilter.ToLower()));
+            
+            if (!string.IsNullOrEmpty(userParams.OrderBy))
+            {
+                switch (userParams.OrderBy)
+                {
+                    case "author":
+                        booksToReturn = booksToReturn.OrderBy(x => x.Author);
+                        break;
+                    
+                    case "title":
+                        booksToReturn = booksToReturn.OrderBy(x => x.Title);
+                        break;
+                    
+                    case "publisher":
+                        booksToReturn = booksToReturn.OrderBy(x => x.Publisher);
+                        break;
+                    
+                    default:
+                        booksToReturn = booksToReturn.OrderBy(x => x.Id);
+                        break;
+                }
+            }
 
             return await PagedList<Book>.CreateAsync(booksToReturn, userParams.PageNumber, userParams.PageSize);
         }
