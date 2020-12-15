@@ -125,5 +125,8 @@
       }
     }
   },
-  "defaultProject": "HomeLibrary-SPA"
+  "defaultProject": "HomeLibrary-SPA",
+  "cli": {
+    "analytics": "fa357016-d311-4ade-9da8-1f393ab2005f"
+  }
 }

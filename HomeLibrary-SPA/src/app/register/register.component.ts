@@ -17,26 +17,26 @@ export class RegisterComponent implements OnInit {
 
   constructor(private authService: AuthService, private router: Router, private alertify: AlertifyService, private fb: FormBuilder) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.createRegisterForm();
   }
 
-  createRegisterForm() {
+  createRegisterForm(): void {
     this.registerForm = this.fb.group({
       username: ['', Validators.required],
-      emailAddress: new FormControl('',[
+      emailAddress: new FormControl('', [
         Validators.required,
-        Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]),
+        Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]),
       password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(8)]],
       confirmPassword: ['', Validators.required]
     }, {validator: this.passwordMatchValidator});
   }
 
-  passwordMatchValidator(g: FormGroup) {
+  passwordMatchValidator(g: FormGroup): {} {
     return g.get('password').value === g.get('confirmPassword').value ? null : {'mismatch': true};
   }
 
-  register() {
+  register(): void {
     if (this.registerForm.valid) {
       this.user = Object.assign({}, this.registerForm.value);
       this.authService.register(this.user).subscribe(() => {
@@ -52,7 +52,7 @@ export class RegisterComponent implements OnInit {
     console.log(this.registerForm.value);
   }
 
-  cancel() {
+  cancel(): void {
     this.cancelRegister.emit(false);
     console.log('cancelled');
   }

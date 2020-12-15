@@ -55,8 +55,7 @@ export class BookSearchComponent implements OnInit {
     if (this.searchForm.valid) {
       this.bookService.getSearchResults(this.searchForm.value).subscribe(
         () => {
-          // this.books = books;
-          // console.log(this.bookService.books);
+
           this.router.navigate(['users/' + this.authService.decodedToken.nameid +  '/add']);
         },
         (error) => {
