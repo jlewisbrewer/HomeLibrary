@@ -1,4 +1,4 @@
-# HomeLibrary
+# ![HomeLibrary](https://fontmeme.com/permalink/210209/c32a7db96ab2f3e799798ce677de495a.png)
 
 A web application designed to store book information in a user's library.
 
@@ -31,5 +31,8 @@ Open a web browser and go to port 4200 to interact with the client locally.
 - [ ] Enable multiple authors and display books by author in user's library.
 - [ ] Display stats about User's library.
 
+## License
+
+This project is available as open source under the terms of the [MIT license](https://opensource.org/licenses/MIT).
 
 
