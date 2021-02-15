@@ -1,6 +1,6 @@
 # [![HomeLibrary](https://i.postimg.cc/c18Q6msh/Screen-Shot-2021-02-14-at-4-10-07-PM.png)](https://postimg.cc/Thfy4n55)
 
-A web application designed to store book information in a user's library.
+HomeLibrary is a web application designed to store a user's book information in an online library. It features persistent data storage on the backend with a SQLite database.
 
 ## Preview
 
