@@ -1,6 +1,35 @@
-# ![HomeLibrary](https://fontmeme.com/permalink/210209/c32a7db96ab2f3e799798ce677de495a.png)
+# [![HomeLibrary](https://i.postimg.cc/c18Q6msh/Screen-Shot-2021-02-14-at-4-10-07-PM.png)](https://postimg.cc/Thfy4n55)
 
 A web application designed to store book information in a user's library.
+
+## Preview
+
+Initial Page:
+[![Initial page](https://i.postimg.cc/pLscWZZC/Screen-Shot-2021-02-14-at-3-51-07-PM.png)](https://postimg.cc/QFWJScvK)
+
+Register a new user:
+[![Register a new user](https://i.postimg.cc/W1z6nPGm/Screen-Shot-2021-02-14-at-3-54-03-PM.png)](https://postimg.cc/18xqm2Y4)
+
+Library after logging in:
+[![Library after logging in](https://i.postimg.cc/sDvvHfL2/Screen-Shot-2021-02-14-at-3-59-25-PM.png)](https://postimg.cc/0b1kbvPg)
+
+Show book information:
+[![Show book information](https://i.postimg.cc/sDvvHfL2/Screen-Shot-2021-02-14-at-3-59-25-PM.png)](https://postimg.cc/0b1kbvPg)
+
+Search for books to add:
+[![Search for books to add](https://i.postimg.cc/sDvvHfL2/Screen-Shot-2021-02-14-at-3-59-25-PM.png)](https://postimg.cc/0b1kbvPg)
+
+Add books to library:
+[![Add books to library](https://i.postimg.cc/Y9TqJYZq/Screen-Shot-2021-02-14-at-4-04-01-PM.png)](https://postimg.cc/WF6vZFsQ)
+
+Remove books from library:
+[![Remove books fromo library](https://i.postimg.cc/FKB9L09g/Screen-Shot-2021-02-14-at-4-05-19-PM.png)](https://postimg.cc/67CJs24y)
+
+Search books in library:
+[![Search books in library](https://i.postimg.cc/PrtBdPHt/Screen-Shot-2021-02-14-at-4-06-37-PM.png)](https://postimg.cc/6TmH06TS)
+
+Sort books in library:
+[![Sort books in library](https://i.postimg.cc/LX5JdHsv/Screen-Shot-2021-02-14-at-4-08-07-PM.png)](https://postimg.cc/1nxmw1wN)
 
 ## Installation
 
